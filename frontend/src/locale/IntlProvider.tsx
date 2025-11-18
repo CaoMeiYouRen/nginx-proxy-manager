@@ -2,12 +2,15 @@ import { createIntl, createIntlCache } from "react-intl";
 import langDe from "./lang/de.json";
 import langEn from "./lang/en.json";
 import langEs from "./lang/es.json";
+import langIt from "./lang/it.json";
 import langJa from "./lang/ja.json";
 import langList from "./lang/lang-list.json";
+import langNl from "./lang/nl.json";
+import langPl from "./lang/pl.json";
 import langRu from "./lang/ru.json";
 import langSk from "./lang/sk.json";
+import langVi from "./lang/vi.json";
 import langZh from "./lang/zh.json";
-import langPl from "./lang/pl.json";
 
 // first item of each array should be the language code,
 // not the country code
@@ -21,6 +24,9 @@ const localeOptions = [
 	["sk", "sk-SK"],
 	["zh", "zh-CN"],
 	["pl", "pl-PL"],
+	["it", "it-IT"],
+	["vi", "vi-VN"],
+	["nl", "nl-NL"],
 ];
 
 const loadMessages = (locale?: string): typeof langList & typeof langEn => {
@@ -40,6 +46,12 @@ const loadMessages = (locale?: string): typeof langList & typeof langEn => {
 			return Object.assign({}, langList, langEn, langZh);
 		case "pl":
 			return Object.assign({}, langList, langEn, langPl);
+		case "it":
+			return Object.assign({}, langList, langEn, langIt);
+		case "vi":
+			return Object.assign({}, langList, langEn, langVi);
+		case "nl":
+			return Object.assign({}, langList, langEn, langNl);
 		default:
 			return Object.assign({}, langList, langEn);
 	}
@@ -68,6 +80,15 @@ const getFlagCodeForLocale = (locale?: string) => {
 		case "pl":
 		case "pl-PL":
 			return "PL";
+		case "it":
+		case "it-IT":
+			return "IT";
+		case "vi":
+		case "vi-VN":
+			return "VN";
+		case "nl":
+		case "nl-NL":
+			return "NL";
 		default:
 			return "EN";
 	}
@@ -91,7 +112,10 @@ const getLocale = (short = false) => {
 const cache = createIntlCache();
 
 const initialMessages = loadMessages(getLocale());
-let intl = createIntl({ locale: getLocale(), messages: initialMessages }, cache);
+let intl = createIntl(
+	{ locale: getLocale(), messages: initialMessages },
+	cache,
+);
 
 const changeLocale = (locale: string): void => {
 	const messages = loadMessages(locale);
@@ -131,4 +155,12 @@ const T = ({
 	);
 };
 
-export { localeOptions, getFlagCodeForLocale, getLocale, createIntl, changeLocale, intl, T };
+export {
+	localeOptions,
+	getFlagCodeForLocale,
+	getLocale,
+	createIntl,
+	changeLocale,
+	intl,
+	T,
+};
